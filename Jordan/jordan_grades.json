@@ -1,0 +1,470 @@
+{
+  "grades": {
+    "assign1": {
+      "name": "assign1",
+      "timeliness": {
+        "submit": {
+          "when": "Mon 4/15 15:55",
+          "status": "on/before duedate",
+          "override": ""
+        },
+        "retests": null,
+        "extension": {
+          "when": "Tue 4/16 14:24",
+          "status": "on/before duedate",
+          "override": ""
+        }
+      },
+      "test_totals": {
+        "Larson application": {
+          "total": 5,
+          "passed": 5
+        }
+      },
+      "test_results": {
+        "10-SingleLED": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "11-MovementOneDirection": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "12-MovementBothDirection": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "13-LarsonPattern": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "14-PatternOffByOne": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "20-ExtensionDimmer": {
+          "result": "Partial",
+          "explanation": "",
+          "issue": null,
+          "class": "Extension",
+          "extension_name": "Smooth dimming",
+          "category": null
+        },
+        "30-CodeQuality": {
+          "result": "+",
+          "explanation": "",
+          "issue": null,
+          "class": "Quality",
+          "extension_name": null,
+          "category": "Style"
+        }
+      },
+      "review": {
+        "larson.s": {
+          "lines": "/* File: larson.s\n * --------------\n * This is my larson scanner :D\n */\n\n/*\n * The code below is the blink program from Lab 1.\n * Modify the code to implement the larson scanner for Assignment 1.\n * Be sure to use GPIO pins PB0-PB3 (or PB0-PB7) for your LEDs.\n */\n\n    lui     a0,0x2000       # a0 holds base addr PB group = 0x2000000\n    li      a1,0x11111111   # a1 holds 0b 0001 0001 0001 0001 0001 0001 0001\n    sw      a1,0x30(a0)     # config PB0-PB7 as output\n    li      a3, 0x1         # a3 holds PB0 set\n    li      a4, 8           # Pin counter (PB0 - PB7)\n\nloop:\n    sw      a3,0x40(a0)     # Turn on pin\n    \n    # Delay Time\n    lui     a2,0x3f00       # a2 = init countdown value\n\n    delay:\n        addi    a2,a2,-1        # decrement a2\n        bne     a2,zero,delay   # keep counting down until a2 is zero\n\n    # Turn off pin\n    sw      zero, 0x40(a0)\n\n    # Prepare next pin by left shifting\n    slli    a3, a3, 1           # Left shift to next pin\n    addi    a4, a4, -1          # Update pin counter\n    bne     a4, zero, loop      # Continue looping if the register != zero\n\n\n    # Reset counter and shift right by 1 to accommodate\n    li      a3, 0x40    # Start with PB6    \n    li      a4, 6\n    \nloop2:\n    # Turn on pin\n    sw      a3, 0x40(a0)\n\n    lui     a2, 0x3f00\n     delay2:\n          addi    a2,a2,-1        # decrement a2\n          bne     a2,zero,delay2   # keep counting down until a2 is zero\n \n      # Turn off pin\n      sw      zero, 0x40(a0)\n\n    # Prepare next pin by right shifting\n    srli    a3, a3, 1           # Right shift to next pin\n    addi    a4, a4, -1          # Update pin counter\n    bne     a4, zero, loop2\n\n    # Reset for loop\n    li      a3, 0x1\n    li      a4, 8\n    \nj       loop            # back to top of outer loop\n\n\n",
+          "comments": [
+            {
+              "from": 18,
+              "to": 18,
+              "comment": "In assembly we tend to not use multiple levels of indentation like this, as nothing is actually nested. "
+            },
+            {
+              "from": 11,
+              "to": 11,
+              "comment": "Great work, clean and concise. "
+            }
+          ]
+        }
+      }
+    },
+    "assign2": {
+      "name": "assign2",
+      "timeliness": {
+        "submit": {
+          "when": "Thu 4/25 14:31",
+          "status": "within grace period",
+          "override": ""
+        },
+        "retests": null,
+        "extension": {
+          "when": "Thu 4/25 16:50",
+          "status": "within grace period",
+          "override": ""
+        }
+      },
+      "test_totals": {
+        "Clock application": {
+          "total": 3,
+          "passed": 3
+        },
+        "Unit tests (P1)": {
+          "total": 7,
+          "passed": 7
+        },
+        "Unit tests (P2)": {
+          "total": 2,
+          "passed": 2
+        },
+        "Unit tests (P3)": {
+          "total": 1,
+          "passed": 1
+        }
+      },
+      "test_results": {
+        "10-GpioSetFunction": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "11-GpioGetFunction": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "12-GpioSetFunctionClear": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "13-GpioSetFunctionIndependent": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "14-GpioRead": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "15-GpioWrite": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "16-GpioSetGetFunctionAll": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "17-GpioReadWriteAll": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "18-GpioInvalid": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "20-Timer": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "40-ExtensionSetTime": {
+          "result": "Complete",
+          "explanation": "",
+          "issue": null,
+          "class": "Extension",
+          "extension_name": "Set time",
+          "category": null
+        },
+        "50-CodeQuality": {
+          "result": "+",
+          "explanation": "",
+          "issue": null,
+          "class": "Quality",
+          "extension_name": null,
+          "category": "Style"
+        },
+        "51-TestsQuality": {
+          "result": "+",
+          "explanation": "",
+          "issue": null,
+          "class": "Quality",
+          "extension_name": null,
+          "category": "Tests"
+        },
+        "30-ClockStart": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "31-ClockProgress": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "32-ClockEnd": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        }
+      },
+      "review": {
+        "timer_asm.s": {
+          "lines": "/* File: timer_asm.s\n\n * ------------------\n Implementing the assembly code for timer_get_ticks\n */\n\n.attribute arch, \"rv64imac_zicsr\"\n\n.globl timer_get_ticks\ntimer_get_ticks:\n    csrr a0, 0xC01\n    # Take care to use correct dest register for return value\n    # so as to interoperate with C calling conventions\n    ret\n",
+          "comments": []
+        },
+        "gpio.c": {
+          "lines": "/* File: gpio.c\n * ------------\n * Wrote four functions to set/get/read/write gpio pins\n */\n#include \"gpio.h\"\n#include <stddef.h>\n\nenum { GROUP_B = 0, GROUP_C, GROUP_D, GROUP_E, GROUP_F, GROUP_G };\n\ntypedef struct  {\n    unsigned int group;\n    unsigned int pin_index;\n} gpio_pin_t;\n\n// The gpio_id_t enumeration assigns a symbolic constant for each\n// in such a way to use a single hex constant. The more significant\n// hex digit identifies the group and lower 2 hex digits are pin index:\n//       constant 0xNnn  N = which group,  nn = pin index within group\n//\n// This helper function extracts the group and pin index from a gpio_id_t\n// e.g. GPIO_PB4 belongs to GROUP_B and has pin_index 4\nstatic gpio_pin_t get_group_and_index(gpio_id_t gpio) {\n    gpio_pin_t gp;\n    gp.group = gpio >> 8;\n    gp.pin_index = gpio & 0xff; // lower 2 hex digits\n    return gp;\n}\n\n// The gpio groups are differently sized, e.g. B has 13 pins, C only 8.\n// This helper function confirms that a gpio_id_t is valid (group\n// and pin index are valid)\nbool gpio_id_is_valid(gpio_id_t pin) {\n    gpio_pin_t gp = get_group_and_index(pin);\n    switch (gp.group) {\n        case GROUP_B: return (gp.pin_index <= GPIO_PB_LAST_INDEX);\n        case GROUP_C: return (gp.pin_index <= GPIO_PC_LAST_INDEX);\n        case GROUP_D: return (gp.pin_index <= GPIO_PD_LAST_INDEX);\n        case GROUP_E: return (gp.pin_index <= GPIO_PE_LAST_INDEX);\n        case GROUP_F: return (gp.pin_index <= GPIO_PF_LAST_INDEX);\n        case GROUP_G: return (gp.pin_index <= GPIO_PG_LAST_INDEX);\n        default:      return false;\n    }\n}\n\n/*\n// This helper function is suggested to return the address of\n// the config0 register for a gpio group, i.e. get_cfg0_reg(GROUP_B)\n// Refer to the D1 user manual to learn the address the config0 register\n// for each group. Be sure to note how the address of the config1 and\n// config2 register can be computed as relative offset from config0.\nstatic volatile unsigned int *get_cfg0_reg(unsigned int group) {\n    return NULL;\n}\n\n// This helper function is suggested to return the address of\n// the data register for a gpio group. Refer to the D1 user manual\n// to learn the address of the data register for each group.\nstatic volatile unsigned int *get_data_reg(unsigned int group) {\n    return NULL;\n}\n*/\n\nvoid gpio_init(void) {\n    // no initialization required for this peripheral\n}\n\nvoid gpio_set_input(gpio_id_t pin) {\n    gpio_set_function(pin, GPIO_FN_INPUT);\n}\n\nvoid gpio_set_output(gpio_id_t pin) {\n    gpio_set_function(pin, GPIO_FN_OUTPUT);\n}\n\nvoid gpio_set_function(gpio_id_t pin, unsigned int function) {\n    // PB0, PB2, PB3, PB4, PB6, PB10, PB11, PB12, PC0, PD17, PE17, PG12, PG13\n \n    // Check to see if pin and function is valid\n    if (gpio_id_is_valid(pin) == false || function > GPIO_FN_DISABLED) {\n        return;\n    }\n\n    // Find Group and Index\n    gpio_pin_t gp = get_group_and_index(pin);\n    \n    // Register index\n    unsigned int reg_index = gp.pin_index / 8;\n    \n    // Bit position\n    unsigned int bit_pos = (gp.pin_index % 8) * 4;\n\n    // Update the address depending on the group and register\n    volatile unsigned int *config_reg = (unsigned int *) 0x02000030;\n    // Update\n    config_reg = (unsigned int *)((char *)config_reg + gp.group * 0x30 + reg_index * 0x4);\n    \n    // Shift 0b1111 by the (pin # mod 8) * 4\n    volatile unsigned int mask = 0xF << bit_pos;\n\n    // Move the desired function to the correct pin\n    volatile unsigned int func = function << bit_pos;\n\n    // OR mask and the function to update the address\n    *config_reg = (*config_reg & ~mask) | func;\n}\n\nunsigned int gpio_get_function(gpio_id_t pin) {\n\n    // If the pin is illegal\n    if (gpio_id_is_valid(pin) == false) {\n        return GPIO_INVALID_REQUEST;\n    }\n\n    // Find Group and Index\n    gpio_pin_t gp = get_group_and_index(pin);\n\n    // Register index\n    unsigned int reg_index = gp.pin_index / 8;\n\n    // Bit position\n    unsigned int bit_pos = (gp.pin_index % 8) * 4;\n\n    // Update the address depending on the group and register\n    volatile unsigned int *config_reg = (unsigned int *) 0x02000030;\n    config_reg = (unsigned int *)((char *)config_reg + gp.group * 0x30 + reg_index * 0x4);\n\n    // Shift 0b1111 by the (pin # mod 8) * 4\n    volatile unsigned int mask = 0xF << bit_pos;\n\n    // AND bits and the address to obtain the function values\n    mask = (mask & *config_reg);\n\n    // Shift the bits to the rightest location\n    volatile unsigned int function = mask >> bit_pos;\n\n    return function;\n}\n\nvoid gpio_write(gpio_id_t pin, int value) {\n    // If pin is not valid, do nothing\n    if (gpio_id_is_valid(pin) == false) {\n        return;\n    }\n    \n    // Find Group and Index\n    gpio_pin_t gp = get_group_and_index(pin);\n\n    // Start at PB data register\n    volatile unsigned int *config_data = (unsigned int *) 0x02000040;\n    config_data = (unsigned int *)((char *)config_data + gp.group * 0x30);\n\n    // Set bits for mask\n    volatile unsigned int mask = 1 << gp.pin_index;\n\n    // Find the value to turn on\n    if (value == 1) {\n        // AND to set the bit to 1\n        *config_data = *config_data | mask;\n        } else {\n        // clear bit\n        *config_data = *config_data & ~mask;\n    }\n}\n\nint gpio_read(gpio_id_t pin) {\n    if (gpio_id_is_valid(pin) == false) {\n        return GPIO_INVALID_REQUEST;\n    }   \n\n    // Group and Index\n    gpio_pin_t gp = get_group_and_index(pin);\n\n    // Start at PB data register\n    volatile unsigned int *config_data = (unsigned int *) 0x02000040;\n    config_data = (unsigned int *)((char *)config_data + gp.group * 0x30);\n\n    // Set mask\n    unsigned int mask = 1 << gp.pin_index;\n\n    // return 1 or 0 depending on *config_data & mask\n    return (*config_data & mask) ? 1 : 0;\n} \n",
+          "comments": [
+            {
+              "from": 181,
+              "to": 181,
+              "comment": "no need for the ternary can just return the 1 or 0 thats being read "
+            },
+            {
+              "from": 46,
+              "to": 59,
+              "comment": "delete these headers "
+            },
+            {
+              "from": 110,
+              "to": 110,
+              "comment": "no need to compare to false"
+            }
+          ]
+        },
+        "clock.c": {
+          "lines": "/* File: clock.c\n * -------------\n Array of 16 elements with bit patterns for 0 - 9 and A - F, and the implementation of displaying digits, refresh display, countdown.\n */\n#include \"gpio.h\"\n#include \"timer.h\"\n\n// Define an array of 7-segment patterns for hexadecimal digits 0-F\nunsigned char digitPatterns[16] = {\n    0b00111111, // 0\n    0b00000110, // 1\n    0b01011011, // 2\n    0b01001111, // 3\n    0b01100110, // 4\n    0b01101101, // 5\n    0b01111101, // 6\n    0b00000111, // 7\n    0b01111111, // 8\n    0b01101111, // 9\n    0b01110111, // A\n    0b01111100, // B\n    0b00111001, // C\n    0b01011110, // D\n    0b01111001, // E\n    0b01110001  // F\n};\n\n// These are the GPIO pins connected to the segments A-G respectively\nconst gpio_id_t segmentPins[7] = {GPIO_PD17, GPIO_PB6, GPIO_PB12, GPIO_PB11, GPIO_PB10, GPIO_PE17, GPIO_PB0};\n\n// Digit select pins\nconst gpio_id_t digitSelectPins[4] = {GPIO_PB4, GPIO_PB3, GPIO_PB2, GPIO_PC0};\n\n// Button\nconst gpio_id_t startButton = GPIO_PG13;\n\n// Make each pin an output\nvoid gpio_init_display() {\n    for (int i = 0; i < 7; i++) {\n        gpio_set_output(segmentPins[i]);\n    }\n    for (int i = 0; i < 4; i++) {\n        gpio_set_output(digitSelectPins[i]);\n    }\n    gpio_set_input(startButton);\n}\n\nvoid display_digit(unsigned int digit, unsigned char value) {\n    // Set all segment pins according to the segment pattern\n    for (int i = 0; i < 7; i++) {\n        gpio_write(segmentPins[i], (digitPatterns[value] >> i) & 1);\n    }\n    // Activate the current digit\n    for (int i = 0; i < 4; i++) {\n        gpio_write(digitSelectPins[i], i == digit ? 1 : 0);\n    }\n    timer_delay_us(2500); // Display for a short period\n    gpio_write(digitSelectPins[digit], 0); // Turn off the current digit\n}\n\nvoid refresh_display(unsigned char values[4]) {\n    unsigned long start_ticks = timer_get_ticks(); // Get the starting tick count\n    unsigned long current_ticks = start_ticks;    // Initialize current_ticks with start_ticks\n\n    // Loop for approximately 1 second\n    while (current_ticks - start_ticks < TICKS_PER_USEC * 1000050) {\n        for (int i = 0; i < 4; i++) {\n            display_digit(i, values[i]); // Display each digit\n        }\n        current_ticks = timer_get_ticks(); // Update the current tick count\n    }\n}\n\nvoid countdown_animation() {\n    // Spam F's\n    for (int i = 0; i < 20; i++) {\n        for (int digit = 0; digit < 4; digit++) {\n            display_digit(digit, 0x0F); // Display 'F' or all segments off\n        }\n        timer_delay_ms(100);\n    }\n}\n\nvoid countdown_timer(int minutes, int seconds) {\n    int total_seconds = minutes * 60 + seconds;\n    unsigned char digits[4];\n\n    while (total_seconds >= 0) {\n        digits[0] = total_seconds / 600; // Hundreds of minutes\n        digits[1] = (total_seconds / 60) % 10; // Tens of minutes\n        digits[2] = (total_seconds % 60) / 10; // Tens of seconds\n        digits[3] = total_seconds % 10; // Units of seconds\n\n        refresh_display(digits);\n        //timer_delay_ms(1000);\n        total_seconds--;\n\n        if (total_seconds < 0) {\n            countdown_animation();\n            break;\n        }\n    }\n}\nint main(void) {\n    // Initialize\n    gpio_init();\n    timer_init();\n    gpio_init_display();\n\n    unsigned char digits[4] = {0, 0, 1, 0}; // Initial digits to display\n    \n    // Begin when button is pressed\n    while (gpio_read(startButton) == 1) {\n            for (int i = 0; i < 4; i++) {\n                display_digit(i, digits[i]);\n        // Wait for start button to be pressed\n    }\n    }\n\n    countdown_timer(0, 10); // Start countdown from 2 minutes 30 seconds\n    return 0;\n    }\n",
+          "comments": [
+            {
+              "from": 55,
+              "to": 55,
+              "comment": "no need for ternary can just take output of the comparison"
+            }
+          ]
+        },
+        "test_gpio_timer.c": {
+          "lines": "/* File: test_gpio_timer.c\n * -----------------------\n * Test GPIO\n */\n#include \"gpio.h\"\n#include \"timer.h\"\n\n// You call assert on an expression that you expect to be true. If expr\n// instead evaluates to false, then assert calls abort, which stops\n// your program and flashes onboard led.\n#define assert(expr) if(!(expr)) abort()\n\n// infinite loop that flashes onboard blue LED (GPIO PD18)\nvoid abort(void) {\n    volatile unsigned int *GPIO_CFG2 = (unsigned int *)0x02000098;\n    volatile unsigned int *GPIO_DATA = (unsigned int *)0x020000a0;\n\n    // Configure GPIO PD18 function to be output.\n    *GPIO_CFG2 = (*GPIO_CFG2 & ~(0xf00)) | 0x100;\n    while (1) { // infinite loop\n        *GPIO_DATA ^= (1 << 18); // invert value\n        for (volatile int delay = 0x100000; delay > 0; delay--) ; // wait\n    }\n}\n\nvoid test_gpio_set_get_function(void) {\n    // Test get pin function (pin defaults to disabled)\n     assert( gpio_get_function(GPIO_PC0) == GPIO_FN_DISABLED);\n\n    // Set pin to output, confirm get returns what was set\n    gpio_set_output(GPIO_PC0);\n    assert( gpio_get_function(GPIO_PC0) == GPIO_FN_OUTPUT );\n\n    // Set pin to input, confirm get returns what was set\n    gpio_set_input(GPIO_PC0);\n    assert( gpio_get_function(GPIO_PC0) == GPIO_FN_INPUT );\n\n\n    \n    // My Unit Tests\n\n    // Test larger GPIO pins\n    gpio_set_input(GPIO_PB10);\n    assert( gpio_get_function(GPIO_PB10) == GPIO_FN_INPUT );\n\n    // Random Tests (larger pins, input/output\n    gpio_set_input(GPIO_PE17);\n    assert( gpio_get_function(GPIO_PE17) == GPIO_FN_INPUT ); \n\n    gpio_set_output(GPIO_PG12);\n    assert( gpio_get_function(GPIO_PG12) == GPIO_FN_OUTPUT );\n\n    // Set a pin to an alternate function and verify\n    gpio_set_function(GPIO_PD5, GPIO_FN_ALT2);\n    assert( gpio_get_function(GPIO_PD5) == GPIO_FN_ALT2 );\n\n    // Set another pin to a different alternate function and verify\n    gpio_set_function(GPIO_PD6, GPIO_FN_ALT3);\n    assert( gpio_get_function(GPIO_PD6) == GPIO_FN_ALT3 );\n\n    // Change the function of the pin to another alternate function and verify\n    gpio_set_function(GPIO_PD5, GPIO_FN_ALT4);\n    assert( gpio_get_function(GPIO_PD5) == GPIO_FN_ALT4 );\n\n    // Check previous pin remains unchanged\n    assert( gpio_get_function(GPIO_PD6) == GPIO_FN_ALT3 );\n\n\n}\n\nvoid test_gpio_read_write(void) {\n    // set pin to output before gpio_write\n    gpio_set_output(GPIO_PB4);\n\n    // gpio_write low, confirm gpio_read reads what was written\n    gpio_write(GPIO_PB4, 0);\n    assert( gpio_read(GPIO_PB4) ==  0 );\n\n   // gpio_write high, confirm gpio_read reads what was written\n    gpio_write(GPIO_PB4, 1);\n    assert( gpio_read(GPIO_PB4) ==  1 );\n\n    // gpio_write low, confirm gpio_read reads what was written\n    gpio_write(GPIO_PB4, 0);\n    assert( gpio_read(GPIO_PB4) ==  0 );\n\n\n    // My Unit Tests\n\n    // Attempt to set an invalid GPIO pin\n    gpio_set_function(GPIO_ID_LAST + 1, GPIO_FN_OUTPUT);\n    assert(gpio_get_function(GPIO_ID_LAST + 1) == GPIO_INVALID_REQUEST);\n\n    // Set pin as output, write high, read back\n    gpio_set_output(GPIO_PC0);\n    gpio_write(GPIO_PC0, 1);\n    assert( gpio_read(GPIO_PC0) == 1) ;\n\n    // Multiple pins\n    gpio_set_output(GPIO_PD10);\n    gpio_set_output(GPIO_PD11);\n\n    // Write different values and verify\n    gpio_write(GPIO_PD10, 1);\n    gpio_write(GPIO_PD11, 0);\n    assert( gpio_read(GPIO_PD10) == 1 );\n    assert( gpio_read(GPIO_PD11) == 0 );\n\n    // Flip values and verify\n    gpio_write(GPIO_PD10, 0);\n    gpio_write(GPIO_PD11, 1);\n    assert( gpio_read(GPIO_PD10) == 0 );\n    assert( gpio_read(GPIO_PD11) == 1 );\n\n}\n\nvoid test_timer(void) {\n    // Test timer tick count incrementing\n    unsigned long start = timer_get_ticks();\n    for( int i=0; i<10; i++ ) { /* Spin */ }\n    unsigned long finish = timer_get_ticks();\n    assert( finish > start );\n\n    // Test timer delay\n    int usecs = 100;\n    start = timer_get_ticks();\n    timer_delay_us(usecs);\n    finish = timer_get_ticks();\n    assert( finish >= start + usecs*TICKS_PER_USEC );\n}\n\nvoid test_breadboard(void) {\n    gpio_id_t segment[7] = {GPIO_PD17, GPIO_PB6, GPIO_PB12, GPIO_PB11, GPIO_PB10, GPIO_PE17, GPIO_PB0};\n    gpio_id_t digit[4] = {GPIO_PB4, GPIO_PB3, GPIO_PB2, GPIO_PC0};\n\n    gpio_id_t button = GPIO_PG13;\n\n    for (int i = 0; i < 7; i++) {  // configure segments\n        gpio_set_output(segment[i]);\n    }\n    for (int i = 0; i < 4; i++) {  // configure digits\n        gpio_set_output(digit[i]);\n    }\n    gpio_set_input(button); // configure button\n\n    while (1) { // loop forever (finish via button press, see below)\n        for (int i = 0; i < 4; i++) {   // iterate over digits\n            gpio_write(digit[i], 1);    // turn on digit\n            for (int j = 0; j < 7; j++) {   // iterate over segments\n                gpio_write(segment[j], 1);  // turn on segment\n                timer_delay_ms(200);\n                gpio_write(segment[j], 0);  // turn off segment\n                if (gpio_read(button) == 0) return;  // stop when button pressed\n            }\n            gpio_write(digit[i], 0);    // turn off digit\n        }\n    }\n}\n\nvoid main(void) {\n    gpio_init();\n    timer_init();\n\n    // Uncomment the call to each test function below when you have implemented\n    // the functions and are ready to test them\n\n   // test_gpio_set_get_function();   \n    //test_gpio_read_write();\n     //test_timer();\n//     test_breadboard();\n}\n",
+          "comments": []
+        },
+        "timer.c": {
+          "lines": "/* File: timer.c\n * -------------\n * ***** TODO: add your file header comment here *****\n */\n#include \"timer.h\"\n\n// implemented in file timer_asm.s\nextern unsigned long timer_get_ticks(void);\n\nvoid timer_init(void) {\n    // no initialization required for this peripheral\n}\n\nvoid timer_delay(int secs) {\n    timer_delay_us(secs*1000000);\n}\n\nvoid timer_delay_ms(int ms) {\n    timer_delay_us(ms*1000);\n}\n\nvoid timer_delay_us(int us) {\n    unsigned long busy_wait_until = timer_get_ticks() + us * TICKS_PER_USEC;\n    while (timer_get_ticks() < busy_wait_until) {} // spin\n}\n",
+          "comments": []
+        },
+        "cstart.c": {
+          "lines": "/* File: cstart.c\n * --------------\n * Provided to you pre-written. In an upcoming lecture, we\n * will discuss what this code does and why it is necessary.\n */\n\n// linker memmap places these symbols at start/end of bss\nextern char __bss_start, __bss_end;\n\nextern void main(void);\n\n// The C function _cstart is called from the assembly in start.s\n// _cstart zeroes out the BSS section and then calls main.\n// After return from main(), turns on the onboard act led as\n// a sign of successful completion.\nvoid _cstart(void) {\n    char *bss = &__bss_start;\n    char *bss_end = &__bss_end;\n\n    while (bss < bss_end) {\n        *bss++ = 0;\n    }\n\n    // Turn on the blue act led (GPIO PD18) before starting main\n    volatile unsigned int *PD_CFG2 = (unsigned int *)0x02000098;\n    volatile unsigned int *PD_DATA = (unsigned int *)0x020000a0;\n    *PD_CFG2 = (*PD_CFG2 & ~0xf00) | 0x100;\n    *PD_DATA |= (1 << 18);\n\n    main();\n\n    *PD_DATA &= ~(1 << 18); // turn off after main finishes normally\n}\n",
+          "comments": []
+        },
+        "start.s": {
+          "lines": "/* File: start.s\n * -------------\n * These asm instuctions go first in binary image, they will be\n * the first to be executed in a newly loaded program.\n */\n .attribute arch, \"rv64im_zicsr\"\n\n# Identify this section as the one to go first in binary image\n.section \".text.start\"\n\n.globl _start\n_start:\n    csrc    mstatus, 1<<3   # global disable interrupts, mstatus.mie = 0\n    la      t0,_trap_handler\n    csrw    mtvec,t0        # install trap handler\n    lui     sp,0x60000      # init stack at 0x60000000 (grows down)\n    jal     _cstart\n\nhang: j hang\n\n.align 8\n_trap_handler:\n    j _trap_handler        # if exception raised, hang\n",
+          "comments": []
+        },
+        "larson.c": {
+          "lines": "/* File: larson.c\n * --------------\n * Sample program that demonstrates use of gpio and timer library modules.\n * (Larson scanner rewritten in C)\n * Author: Julie Zelenski <zelenski@cs.stanford.edu>\n */\n#include \"gpio.h\"\n#include \"timer.h\"\n\n#define NUM_LEDS 4\n#define DELAY_MS  (1000/NUM_LEDS)  // frequency 1 sweep per sec\n\nvoid blink(gpio_id_t pin) {\n    gpio_write(pin, 1);\n    timer_delay_ms(DELAY_MS);\n    gpio_write(pin, 0);\n    timer_delay_ms(DELAY_MS);\n}\n\nvoid main(void) {\n    gpio_id_t leds[NUM_LEDS] = { GPIO_PB0, GPIO_PB1, GPIO_PB2, GPIO_PB3 };\n    gpio_init();\n    for (int i = 0; i < NUM_LEDS; i++) {\n        gpio_set_output(leds[i]);\n    }\n\n    int cur = 0;\n    while (1) {\n        for (int i = 0; i < NUM_LEDS-1; i++) {\n            blink(leds[cur++]); // move up\n        }\n        for (int i = 0; i < NUM_LEDS-1; i++) {\n            blink(leds[cur--]); // move down\n        }\n    }\n}\n",
+          "comments": []
+        }
+      }
+    },
+    "assign3": {
+      "name": "assign3",
+      "timeliness": {
+        "submit": {
+          "when": "Thu 5/2 14:34",
+          "status": "within grace period",
+          "override": null
+        },
+        "retests": null,
+        "extension": null
+      },
+      "test_totals": {},
+      "test_results": {
+        "10-StringsMemset": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "11-StringsStrcmp": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "12-StringsStrlcat": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "13-StringsStrlcatReturn": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "14-StringsStrtonum": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "15-StringsStrtonumHex": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "16-StringsStrtonumEndptr": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "20-SnprintfCharacter": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "21-SnprintfNumeric": {
+          "result": false,
+          "explanation": "Match ratio = 0.979",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "22-SnprintfMixed": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "23-SnprintfZeroPad": {
+          "result": false,
+          "explanation": "Match ratio = 0.907",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "24-SnprintfBufSize": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "25-SnprintfReturn": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "26-Printf": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        }
+      },
+      "review": {
+        "printf.c": {
+          "lines": "/* File: printf.c\n * --------------\n *  This is my implementation of prinf ;d\n */\n#include \"printf.h\"\n#include <stdarg.h>\n#include <stdint.h>\n#include \"strings.h\"\n#include \"uart.h\"\n\n/* Prototypes for internal helpers.\n * Typically these would be qualified as static (private to module)\n * but, in order to call them from the test program, we declare them externally\n */\nint unsigned_to_base(char *buf,\n                     size_t bufsize,\n                     unsigned long val,\n                     int base, size_t\n                     min_width);\nint signed_to_base(char *buf,\n                   size_t bufsize,\n                   long val,\n                   int base,\n                   size_t min_width);\n\n#define MAX_OUTPUT_LEN 1024\n\nint unsigned_to_base(char *buf, size_t bufsize, unsigned long val, int base, size_t min_width) {\n    // Check if the base is valid\n    if (base != 10 && base != 16) {\n        return -1;\n    }\n\n    // Temporary buffer to hold the result before copying to `buf`\n    char temp[65]; // Long enough to hold any 64-bit number\n\n    // Pointer for filling the temporary buffer from the end to the start\n    char *ptr = &temp[sizeof(temp) - 1];\n    *ptr = '\\0'; // Null-terminate the buffer\n\n    // Convert val to the requested base\n    do {\n        unsigned long digit = val % base;\n        // decrement ptr first\n        *--ptr = (digit < 10) ? (char)('0' + digit) : (char)('a' + (digit - 10));\n        val /= base;\n    } while (val != 0);\n\n    // Calculate the actual number of digits in the number\n    size_t num_digits = &temp[sizeof(temp) - 1] - ptr;\n\n    // Calculate the total padding needed to satisfy min_width\n    size_t total_chars = (num_digits < min_width) ? min_width : num_digits;\n   \n    // Check if the result fits in `buf`\n    if (total_chars >= bufsize) {\n        return total_chars; // Return the number of characters that would have been written\n    }\n    \n\n    // Fill in the buffer with zero padding if necessary\n    size_t padding = (num_digits < min_width) ? min_width - num_digits : 0;\n    memset(buf, '0', padding);\n\n    // Copy the number from temp buffer to buf after the padding\n    memcpy(buf + padding, ptr, num_digits + 1); // Include the null terminator\n\n    return total_chars;\n}\n\nint signed_to_base(char *buf, size_t bufsize, long val, int base, size_t min_width) {\n    // Check base\n    if (base != 10 && base != 16) {\n        return -1;\n    }\n\n    // Negative binary\n    int is_negative = (val < 0);\n    if (is_negative) {\n        val = -val; // Convert to positive for processing\n        if (min_width > 0) {\n            min_width--; // Reduce min_width by 1 to accommodate the minus sign later\n        }\n    }\n\n    char temp_buf[65]; // Temporary buffer to use within unsigned_to_base\n    int unsigned_length = unsigned_to_base(temp_buf, sizeof(temp_buf), (unsigned long)val, base, min_width);\n\n    // Total length needed including minus sign\n    size_t required_length = unsigned_length + (is_negative ? 1 : 0); \n\n    // How much we can actually copy\n    size_t copy_length = (required_length < bufsize) ? required_length : bufsize - 1; \n\n    // Add negative sign if negative\n    if (is_negative) {\n        buf[0] = '-';\n        size_t num_to_copy = (copy_length > 1) ? copy_length - 1 : 0; // Calculate space left after minus sign\n        memcpy(buf + 1, temp_buf, num_to_copy); // Copy the formatted number after the minus sign\n    } else {\n        memcpy(buf, temp_buf, copy_length); // Copy as much of the number as fits\n    }\n\n    buf[copy_length] = '\\0'; // Null-terminate the buffer\n\n    return required_length; // Return the total length that would be needed, not including the null terminator\n}\n\nint vsnprintf(char *buf, size_t bufsize, const char *format, va_list args) {\n        size_t n = 0; // Total characters that would have been written\n    size_t actual_written = 0; // Actual characters written to buffer\n\n    for (const char *p = format; *p != '\\0'; p++) {\n        if (*p == '%') {\n            p++; // Skip the '%'\n            size_t min_width = 0;\n\n            // Parse width specification\n            while (*p >= '0' && *p <= '9') {\n                min_width = min_width * 10 + (*p - '0');\n                p++;\n            }\n\n            bool is_long = false;\n            if (*p == 'l') {\n                is_long = true;\n                p++;\n            }\n\n            char num_buf[65]; // Buffer for number conversions\n            int len = 0;\n\n            switch (*p) {\n                case '%': {\n                    len = 1;\n                    if (actual_written < bufsize) buf[actual_written++] = *p;\n                    break;\n                          }\n                        // character\n                case 'c': {\n                    char c = (char)va_arg(args, int);\n                    len = 1;\n                    if (actual_written < bufsize) buf[actual_written++] = c;\n                    break;\n                }\n                          // string\n                case 's': {\n                    const char* str = va_arg(args, const char*);\n                    len = strlen(str);\n                    for (int i = 0; i < len && actual_written < bufsize; i++) {\n                        buf[actual_written++] = str[i];\n                    }\n                    break;\n                }\n                          // decimal\n                case 'd': {\n                    long num = is_long ? va_arg(args, long) : va_arg(args, int);\n                    len = signed_to_base(num_buf, sizeof(num_buf), num, 10, min_width);\n                    for (int i = 0; i < len && actual_written < bufsize; i++) {\n                        buf[actual_written++] = num_buf[i];\n                    }\n                    break;\n                }\n                          // hexadecimal\n                case 'x': {\n                    unsigned long num = is_long ? va_arg(args, unsigned long) : va_arg(args, unsigned int);\n                    len = unsigned_to_base(num_buf, sizeof(num_buf), num, 16, min_width);\n                    for (int i = 0; i < len && actual_written < bufsize; i++) {\n                        buf[actual_written++] = num_buf[i];\n                    }\n                    break;\n                }\n                        // pointer\n                case 'p': {\n                    void* ptr = va_arg(args, void*);\n                    len = snprintf(num_buf, sizeof(num_buf), \"0x%lx\", (unsigned long)ptr);\n                    for (int i = 0; i < len && actual_written < bufsize; i++) {\n                        buf[actual_written++] = num_buf[i];\n                    }\n                    break;\n                }\n                default:\n                    break; // Invalid format specifier\n            }\n            n += len; // Update total length\n        } else {\n            if (actual_written < bufsize) buf[actual_written++] = *p;\n            n++;\n        }\n    }\n    // Total characters that would have been written\n    if (bufsize > 0) buf[actual_written < bufsize ? actual_written : bufsize - 1] = '\\0';\n    return n;\n}\n\nint snprintf(char *buf, size_t bufsize, const char *format, ...)\n{\n    // Makes the va_list\n    va_list ap;\n    va_start(ap, format);\n    int result = 0;\n\n    // call vsnprintf\n    result = vsnprintf(buf, bufsize, format, ap);\n\n    va_end(ap);\n\n    return result;\n}\n\nint printf(const char *format, ...)\n{\n    // sets the buf to the maximum size\n    char buf[MAX_OUTPUT_LEN];\n    size_t bufsize = sizeof(buf);\n    int result = 0;\n\n    // creates a va_list\n    va_list ap;\n    va_start(ap, format);\n\n    // call vsnprintf\n    result = vsnprintf(buf, bufsize, format, ap);\n\n    va_end(ap);\n\n    // put the string\n    uart_putstring(buf);\n\n    return result;\n}\n\n\n/* From here to end of file is some sample code and suggested approach\n * for those of you doing the disassemble extension. Otherwise, ignore!\n *\n * The struct insn bitfield is declared using exact same layout as bits are organized in\n * the encoded instruction. Accessing struct.field will extract just the bits\n * apportioned to that field. If you look at the assembly the compiler generates\n * to access a bitfield, you will see it simply masks/shifts for you. Neat!\n */\n/*\nstatic const char *reg_names[32] = {\"zero\", \"ra\", \"sp\", \"gp\", \"tp\", \"t0\", \"t1\", \"t2\",\n                                    \"s0/fp\", \"s1\", \"a0\", \"a1\", \"a2\", \"a3\", \"a4\", \"a5\",\n                                    \"a6\", \"a7\", \"s2\", \"s3\", \"s4\", \"s5\", \"s6\", \"s7\",\n                                    \"s8\", \"s9\", \"s10\", \"s11\", \"t3\", \"t4\", \"t5\", \"t6\" };\n\nstruct insn  {\n    uint32_t opcode: 7;\n    uint32_t reg_d:  5;\n    uint32_t funct3: 3;\n    uint32_t reg_s1: 5;\n    uint32_t reg_s2: 5;\n    uint32_t funct7: 7;\n};\n\nvoid sample_use(unsigned int *addr) {\n    struct insn in = *(struct insn *)addr;\n    printf(\"opcode is 0x%x, reg_dst is %s\\n\", in.opcode, reg_names[in.reg_d]);\n}\n*/\n\n\n\n",
+          "comments": []
+        },
+        "strings.c": {
+          "lines": "/* File: strings.c\n * ---------------\n * My implementation of the strings module :))\n */\n#include \"strings.h\"\n\nvoid *memcpy(void *dst, const void *src, size_t n) {\n    /* Copy contents from src to dst one byte at a time */\n    char *d = dst;\n    const char *s = src;\n    while (n--) {\n        *d++ = *s++;\n    }\n    return dst;\n}\n\nvoid *memset(void *dst, int val, size_t n) {\n    // look at each value of dst\n    unsigned char *d = dst;\n    // cast val as an unsigned char\n    unsigned char byte = (unsigned char) val;\n\n    // iterate through dst, and set them as byte\n    while (n > 0) {\n        *d++ = byte;\n        n--;\n    }\n    return dst;\n}\n\nsize_t strlen(const char *str) {\n    /* Implementation a gift to you from lab3 */\n    size_t n = 0;\n    while (str[n] != '\\0') {\n        n++;\n    }\n    return n;\n}\n\nint strcmp(const char *s1, const char *s2) {\n    // Iterates through s1 and s2 if they are the same\n    while (*s1 && (*s1 == *s2)) {\n        s1++;\n        s2++;\n    }\n    // return the negative when s1 is less, zero when s1 is equal, and positive\n    // when s1 is greater\n    return *(const unsigned char *)s1 - *(const unsigned char *)s2;\n}\n\nsize_t strlcat(char *dst, const char *src, size_t dstsize) {\n    // use strlen() to find the lengths of dst and src\n    size_t dst_len = strlen(dst);\n    size_t src_len = strlen(src);\n    size_t i;\n\n\n    // shield case in case dstsize is zero or is greater than or equal to\n    // dstsize\n    if (dstsize == 0 || dst_len >= dstsize) {\n        return dstsize + src_len;\n    }\n\n    // append src to dst if there is space (dstsize - 1 to compensate for the\n    // null-termination\n    for (i = dst_len; i < dstsize - 1 && *src != '\\0'; i++) {\n        dst[i] = *src;\n        src++;\n    }\n\n    dst[i] = '\\0';\n\n    return dst_len + src_len;\n}\n\nunsigned long strtonum(const char *str, const char **endptr) {\n    unsigned long result = 0;\n    // set as base 10\n    int base = 10;\n\n    // check if this is in hexadecimal\n    if (str[0] == '0' && (str[1] == 'x' || str[1] == 'X')) {\n        // skip the '0x'\n        str += 2;\n        // set as base 16\n        base = 16;\n    }\n\n    const char *start = str;\n    int digit;\n\n    // Check if the characters are between 0-9\n    while (*str) {\n        if (*str >= '0' && *str <= '9') {\n            digit = *str - '0';\n\n        // Check if the characters are between a-f\n        } else if (*str >= 'a' && *str <= 'f') {\n            digit = 10 + (*str - 'a');\n\n        // Check if the characters are between A-F\n        } else if (*str >= 'A' && *str <= 'F') {\n            digit = 10 + (*str - 'A');\n        } else {\n            break; // Stop on first invalid digit\n        }\n\n        if (digit >= base) {\n            break;\n        }\n\n        result = result * base + digit;\n        str++;\n    }\n\n    // endptr shield\n    if (endptr != NULL) {\n        // Set endptr to point to the first non-valid digit or '\\0'\n        *endptr = str;\n    }\n    if (str == start) {\n        // If no digits were processed, return 0\n        if (endptr) {\n            *endptr = start;\n        }\n        return 0;\n    }\n\n    return result;\n}\n",
+          "comments": []
+        },
+        "print_pinout.c": {
+          "lines": "/* File: print_pinout.c\n * --------------------\n * Sample test program that uses printf to output an ASCII version of\n * the Mango Pi pinout. (C translation of python $CS107E/bin/pinout.py)\n *\n * If the terminal communication program you are using does not support\n * color codes, change OUTPUT_ANSI_COLORS from 1 to 0 to suppress color\n * escapes and only print plain characters.\n *\n * Author: Julie Zelenski <zelenski@cs.stanford.edu>\n */\n\n#include \"printf.h\"\n#include \"uart.h\"\n\n#define OUTPUT_ANSI_COLORS 1\n\n#if OUTPUT_ANSI_COLORS\n#define STRINGIFY_IMPL(x) #x\n#define AS_STRING(x) STRINGIFY_IMPL(x)\n#define ANSI_ESC(n) \"\\e[\" AS_STRING(n) \"m\"\n#else\n#define ANSI_ESC(n) \"\"\n#endif\n\n#define BLACK   ANSI_ESC(40)\n#define RED     ANSI_ESC(41)\n#define GREEN   ANSI_ESC(42)\n#define YELLOW  ANSI_ESC(43)\n#define BLUE    ANSI_ESC(44)\n#define MAGENTA ANSI_ESC(35)\n#define WHITEFG ANSI_ESC(37)\n#define NORMAL  ANSI_ESC(0)\n\nstatic const char *board[] = {\n    \"    |OTG|  |USB|                | HDMI |     \",\n    \" O--|   |--|   |----------------| mini |---O \",\n    \" |                  +-------+      +-----+ | \",\n    \" |     \" MAGENTA \"Mango Pi\" NORMAL \"     |  D1   |      |micro| | \",\n    \" |     \" MAGENTA \" MQ-Pro \" NORMAL \"     |  SoC  |      | sd  | | \",\n    \" |                  +-------+      +-----+ | \",\n    \" |                                         | \",\n    \" | @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ 1 | \",\n    \" | - - - - - - - - - - - - - - - - - - - - | \",\n    \" | @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ | \",\n    \" O-----------------------------------------O \",\n};\n\nstatic struct pair_t {\n    const char *label;\n    const char *color;\n} headers[20][2] = {\n    { {\"3V3\",YELLOW},   {\"5V\",RED} },\n    { {\"PG13\",GREEN},   {\"5V\",RED} },\n    { {\"PG12\",GREEN},   {\"GND\",BLACK} },\n    { {\"PB7\",GREEN},    {\"PB8 (TX)\",GREEN} },\n    { {\"GND\",BLACK},    {\"PB9 (RX)\",GREEN} },\n    { {\"PD21\",GREEN},   {\"PB5\",GREEN} },\n    { {\"PD22\",GREEN},   {\"GND\",BLACK} },\n    { {\"PB0\",GREEN},    {\"PB1\",GREEN} },\n    { {\"3V3\",YELLOW},   {\"PD14\",GREEN} },\n    { {\"MOSI\",GREEN},   {\"GND\",BLACK} },\n    { {\"MISO\",GREEN},   {\"PC1\",GREEN} },\n    { {\"SCLK\",GREEN},   {\"CS0\",GREEN} },\n    { {\"GND\",BLACK},    {\"PD15\",GREEN} },\n    { {\"PE17\",BLUE},    {\"PE16\",BLUE} },\n    { {\"PB10\",GREEN},   {\"GND\",BLACK} },\n    { {\"PB11\",GREEN},   {\"PC0\",GREEN} },\n    { {\"PB12\",GREEN},   {\"GND\",BLACK} },\n    { {\"PB6\",GREEN},    {\"PB2\",GREEN} },\n    { {\"PD17\",GREEN},   {\"PB3\",GREEN} },\n    { {\"GND\",BLACK},    {\"PB4\",GREEN} },\n};\n\nstatic void print_colored_header(const char *str, int row_index) {\n    int pin_index = sizeof(headers)/sizeof(*headers) -1;\n    for (int i = 0; str[i]; i++) {\n        if (str[i] == '@') {\n            printf(\"%s %s\", headers[pin_index][row_index].color,  NORMAL);\n            pin_index--;\n        } else {\n            printf(\"%c\", str[i]);\n        }\n    }\n    printf(\"\\n\");\n}\n\nstatic void print_board(void) {\n    int header_index = 0;\n    for (int i = 0; i < sizeof(board)/sizeof(*board); i++) {\n        const char *rowstr = board[i];\n        if (OUTPUT_ANSI_COLORS && rowstr[3] == '@') {\n            print_colored_header(rowstr, header_index++);\n        } else {\n            printf(\"%s\\n\", rowstr);\n        }\n    }\n}\n\nstatic void print_header_table(void) {\n    int pin_number = 1;\n    for (int i = 0; i < sizeof(headers)/sizeof(*headers); i++) {\n        struct pair_t *pair = headers[i];\n        printf(\"  %s\\t%s%s%02d%s|%s%s%02d%s  %s\\n\",\n            pair[0].label,\n            WHITEFG, pair[0].color, pin_number, NORMAL,\n            WHITEFG, pair[1].color, pin_number+1, NORMAL,\n            pair[1].label);\n        pin_number += 2;\n    }\n}\n\nvoid main(void) {\n    uart_init();\n    printf(\"\\n\");\n    print_board();\n    printf(\"\\n\");\n    print_header_table();\n}\n",
+          "comments": []
+        },
+        "printforiginal.c": {
+          "lines": "/* File: printf.c\n * --------------\n *  This is my implementation of prinf ;d\n */\n#include \"printf.h\"\n#include <stdarg.h>\n#include <stdint.h>\n#include \"strings.h\"\n#include \"uart.h\"\n\n/* Prototypes for internal helpers.\n * Typically these would be qualified as static (private to module)\n * but, in order to call them from the test program, we declare them externally\n */\nint unsigned_to_base(char *buf,\n                     size_t bufsize,\n                     unsigned long val,\n                     int base, size_t\n                     min_width);\nint signed_to_base(char *buf,\n                   size_t bufsize,\n                   long val,\n                   int base,\n                   size_t min_width);\n\n#define MAX_OUTPUT_LEN 1024\n\nint unsigned_to_base(char *buf, size_t bufsize, unsigned long val, int base, size_t min_width) {\n    // Check if the base is valid\n    if (base != 10 && base != 16) {\n        return -1;\n    }\n\n    // Temporary buffer to hold the result before copying to `buf`\n    char temp[65]; // Long enough to hold any 64-bit number\n\n    // Pointer for filling the temporary buffer from the end to the start\n    char *ptr = &temp[sizeof(temp) - 1];\n    *ptr = '\\0'; // Null-terminate the buffer\n\n    // Convert val to the requested base\n    do {\n        unsigned long digit = val % base;\n        // decrement ptr first\n        *--ptr = (digit < 10) ? (char)('0' + digit) : (char)('a' + (digit - 10));\n        val /= base;\n    } while (val != 0);\n\n    // Calculate the actual number of digits in the number\n    size_t num_digits = &temp[sizeof(temp) - 1] - ptr;\n\n    // Calculate the total padding needed to satisfy min_width\n    size_t total_chars = (num_digits < min_width) ? min_width : num_digits;\n   \n    // Check if the result fits in `buf`\n    if (total_chars >= bufsize) {\n        return total_chars; // Return the number of characters that would have been written\n    }\n    \n\n    // Fill in the buffer with zero padding if necessary\n    size_t padding = (num_digits < min_width) ? min_width - num_digits : 0;\n    memset(buf, '0', padding);\n\n    // Copy the number from temp buffer to buf after the padding\n    memcpy(buf + padding, ptr, num_digits + 1); // Include the null terminator\n\n    return total_chars;\n}\n\nint signed_to_base(char *buf, size_t bufsize, long val, int base, size_t min_width) {\n    // Check base\n    if (base != 10 && base != 16) {\n        return -1;\n    }\n\n    // Negative binary\n    int is_negative = (val < 0);\n    if (is_negative) {\n        val = -val; // Convert to positive for processing\n        if (min_width > 0) {\n            min_width--; // Reduce min_width by 1 to accommodate the minus sign later\n        }\n    }\n\n    char temp_buf[65]; // Temporary buffer to use within unsigned_to_base\n    int unsigned_length = unsigned_to_base(temp_buf, sizeof(temp_buf), (unsigned long)val, base, min_width);\n\n    // Total length needed including minus sign\n    size_t required_length = unsigned_length + (is_negative ? 1 : 0); \n\n    // How much we can actually copy\n    size_t copy_length = (required_length < bufsize) ? required_length : bufsize - 1; \n\n    // Add negative sign if negative\n    if (is_negative) {\n        buf[0] = '-';\n        size_t num_to_copy = (copy_length > 1) ? copy_length - 1 : 0; // Calculate space left after minus sign\n        memcpy(buf + 1, temp_buf, num_to_copy); // Copy the formatted number after the minus sign\n    } else {\n        memcpy(buf, temp_buf, copy_length); // Copy as much of the number as fits\n    }\n\n    buf[copy_length] = '\\0'; // Null-terminate the buffer\n\n    return required_length; // Return the total length that would be needed, not including the null terminator\n}\n\nint vsnprintf(char *buf, size_t bufsize, const char *format, va_list args) {\n        size_t n = 0; // Total characters that would have been written\n    size_t actual_written = 0; // Actual characters written to buffer\n\n    for (const char *p = format; *p != '\\0'; p++) {\n        if (*p == '%') {\n            p++; // Skip the '%'\n            size_t min_width = 0;\n\n            // Parse width specification\n            while (*p >= '0' && *p <= '9') {\n                min_width = min_width * 10 + (*p - '0');\n                p++;\n            }\n\n            bool is_long = false;\n            if (*p == 'l') {\n                is_long = true;\n                p++;\n            }\n\n            char num_buf[65]; // Buffer for number conversions\n            int len = 0;\n\n            switch (*p) {\n                case '%':\n                    len = 1;\n                    if (actual_written < bufsize) buf[actual_written++] = *p;\n                    break;\n                case 'c': {\n                    char c = (char)va_arg(args, int);\n                    len = 1;\n                    if (actual_written < bufsize) buf[actual_written++] = c;\n                    break;\n                }\n                case 's': {\n                    const char* str = va_arg(args, const char*);\n                    len = strlen(str);\n                    for (int i = 0; i < len && actual_written < bufsize; i++) {\n                        buf[actual_written++] = str[i];\n                    }\n                    break;\n                }\n                case 'd': {\n                    long num = is_long ? va_arg(args, long) : va_arg(args, int);\n                    len = signed_to_base(num_buf, sizeof(num_buf), num, 10, min_width);\n                    for (int i = 0; i < len && actual_written < bufsize; i++) {\n                        buf[actual_written++] = num_buf[i];\n                    }\n                    break;\n                }\n                case 'x': {\n                    unsigned long num = is_long ? va_arg(args, unsigned long) : va_arg(args, unsigned int);\n                    len = unsigned_to_base(num_buf, sizeof(num_buf), num, 16, min_width);\n                    for (int i = 0; i < len && actual_written < bufsize; i++) {\n                        buf[actual_written++] = num_buf[i];\n                    }\n                    break;\n                }\n                case 'p': {\n                    void* ptr = va_arg(args, void*);\n                    len = snprintf(num_buf, sizeof(num_buf), \"0x%lx\", (unsigned long)ptr);\n                    for (int i = 0; i < len && actual_written < bufsize; i++) {\n                        buf[actual_written++] = num_buf[i];\n                    }\n                    break;\n                }\n                default:\n                    break; // Invalid format specifier\n            }\n            n += len; // Update total length\n        } else {\n            if (actual_written < bufsize) buf[actual_written++] = *p;\n            n++;\n        }\n    }\n\n    if (bufsize > 0) buf[actual_written < bufsize ? actual_written : bufsize - 1] = '\\0';\n    return n; // Total characters that would have been written\n}\n\nint snprintf(char *buf, size_t bufsize, const char *format, ...) {\n    va_list ap;\n    va_start(ap, format);\n    int result = vsnprintf(buf, bufsize, format, ap);\n    va_end(ap);\n    return result;\n}\n\n  int printf(const char *format, ...) {\n    char buf[MAX_OUTPUT_LEN]; // Buffer to hold the output\n    va_list ap;\n    va_start(ap, format);\n    int written = vsnprintf(buf, MAX_OUTPUT_LEN, format, ap);\n    va_end(ap);\n    uart_putstring(buf); // Function to send string to UART\n    return written; // Return the number of characters written\n}\n\n/* From here to end of file is some sample code and suggested approach\n * for those of you doing the disassemble extension. Otherwise, ignore!\n *\n * The struct insn bitfield is declared using exact same layout as bits are organized in\n * the encoded instruction. Accessing struct.field will extract just the bits\n * apportioned to that field. If you look at the assembly the compiler generates\n * to access a bitfield, you will see it simply masks/shifts for you. Neat!\n */\n/*\nstatic const char *reg_names[32] = {\"zero\", \"ra\", \"sp\", \"gp\", \"tp\", \"t0\", \"t1\", \"t2\",\n                                    \"s0/fp\", \"s1\", \"a0\", \"a1\", \"a2\", \"a3\", \"a4\", \"a5\",\n                                    \"a6\", \"a7\", \"s2\", \"s3\", \"s4\", \"s5\", \"s6\", \"s7\",\n                                    \"s8\", \"s9\", \"s10\", \"s11\", \"t3\", \"t4\", \"t5\", \"t6\" };\n\nstruct insn  {\n    uint32_t opcode: 7;\n    uint32_t reg_d:  5;\n    uint32_t funct3: 3;\n    uint32_t reg_s1: 5;\n    uint32_t reg_s2: 5;\n    uint32_t funct7: 7;\n};\n\nvoid sample_use(unsigned int *addr) {\n    struct insn in = *(struct insn *)addr;\n    printf(\"opcode is 0x%x, reg_dst is %s\\n\", in.opcode, reg_names[in.reg_d]);\n}\n*/\n\n\n\n",
+          "comments": []
+        },
+        "test_strings_printf.c": {
+          "lines": "/* File: test_strings_printf.c\n * ---------------------------\n *  Adding tests for printf and strings!\n */\n#include \"assert.h\"\n#include \"printf.h\"\n#include <stddef.h>\n#include \"strings.h\"\n#include \"uart.h\"\n\n// Prototypes copied from printf.c to allow unit testing of helper functions\nint unsigned_to_base(char *buf, size_t bufsize, unsigned long val, int base, size_t min_width);\nint signed_to_base(char *buf, size_t bufsize, long val, int base, size_t min_width);\n\nstatic void test_memset(void) {\n    char buf[12];\n    size_t bufsize = sizeof(buf);\n\n    memset(buf, 0x77, bufsize); // fill buffer with repeating value\n    for (int i = 0; i < bufsize; i++) {\n        assert(buf[i] == 0x77); // confirm value\n    }\n                                \n    // Test filling only part of the buffer\n    memset(buf, 0xAA, 5);\n    for (int i = 0; i < 5; i++) {\n        assert(buf[i] == 0xAA);\n    }\n    for (int i = 5; i < bufsize; i++) {\n        assert(buf[i] == 0x77);  // rest should remain unchanged\n    }\n\n    // Test with zero length\n    memset(buf, 0xCC, 0);\n    for (int i = 0; i < 5; i++) {\n        assert(buf[i] == 0xAA);\n    }\n    for (int i = 5; i < bufsize; i++) {\n        assert(buf[i] == 0x77);  // rest should remain unchanged\n    }\n\n    // Test with different values, including edge cases\n    memset(buf, 0x00, bufsize);\n    for (int i = 0; i < bufsize; i++) {\n        assert(buf[i] == 0x00);\n    }\n    \n    memset(buf, 0xFF, bufsize);\n    for (int i = 0; i < bufsize; i++) {\n        assert(buf[i] == 0xFF);\n    }\n}\n\nstatic void test_strcmp(void) {\n    assert(strcmp(\"apple\", \"apple\") == 0);\n    assert(strcmp(\"apple\", \"applesauce\") < 0);\n    assert(strcmp(\"pears\", \"apples\") > 0);\n\n    // My tests\n    assert(strcmp(\"\", \"\") == 0);\n    assert(strcmp(\"pears\", \"apples\") > 0);\n    assert(strcmp(\"apples\", \"pears\") < 0);\n    // Case difference\n    assert(strcmp(\"Apple\", \"apple\") < 0); \n    assert(strcmp(\"apple\", \"Apple\") > 0);\n\n    assert(strcmp(\"apple\", \"\") > 0);\n    assert(strcmp(\"apple!\", \"apple\") > 0);\n}\n\nstatic void test_strlcat(void) {\n    char buf[20];\n    size_t bufsize = sizeof(buf);\n\n    memset(buf, 0x77, bufsize); // init contents with known value\n\n    buf[0] = '\\0'; // null in first index makes empty string\n    assert(strlen(buf) == 0);\n    strlcat(buf, \"CS\", bufsize); // append CS\n    assert(strlen(buf) == 2);\n    assert(strcmp(buf, \"CS\") == 0);\n    strlcat(buf, \"107e\", bufsize); // append 107e\n    assert(strlen(buf) == 6);\n    assert(strcmp(buf, \"CS107e\") == 0);\n\n    // My tests\n    // long string\n    strlcat(buf, \" very long stringgggggggggggggggggggggg\", bufsize);\n    assert(strlen(buf) == 19); // Only fits as much as possible\n    assert(buf[19] == '\\0');\n\n    // New buf\n    char new_buf[10] = \"1234\";\n    strlcat(new_buf, \"56789\", sizeof(new_buf)); \n    assert(strlen(new_buf) == 9);\n    assert(strcmp(new_buf, \"123456789\") == 0);\n    assert(new_buf[9] == '\\0');\n}\n\nstatic void test_strtonum(void) {\n    long val = strtonum(\"013\", NULL);\n    assert(val == 13);\n\n    const char *input = \"107rocks\";\n    const char *rest = NULL;\n\n    val = strtonum(input, &rest);\n    assert(val == 107);\n    // rest was modified to point to first non-digit character\n    assert(rest == &input[3]);\n\n    // My tests\n    // Test hexadecimal input\n    input = \"0x1A3f\";\n    val = strtonum(input, &rest);\n    assert(val == 6719); \n    assert(rest == &input[6]); // \n                               \n    // Test input with no valid digits\n    input = \"Hello\";\n    val = strtonum(input, &rest);\n    assert(val == 0);\n    assert(rest == input); \n\n     // Test empty string\n    input = \"\";\n    val = strtonum(input, &rest);\n    assert(val == 0); \n    assert(rest == input);\n}\n\nstatic void test_to_base(void) {\n    char buf[5];\n    size_t bufsize = sizeof(buf);\n\n    memset(buf, 0x77, bufsize); // init contents with known value\n\n    int n = signed_to_base(buf, bufsize, -9999, 10, 6);\n    assert(strcmp(buf, \"-099\") == 0)\n    assert(n == 6);\n    \n\n    // Tests from assignment\n    char buf1[20];\n    size_t bufsize1 = sizeof(buf1);\n\n    memset(buf1, 0x77, bufsize1);\n\n    int n1 = unsigned_to_base(buf1, bufsize1, 35, 16, 4);\n    assert(strcmp(buf1, \"0023\") == 0)\n    assert(n1 == 4)\n\n    // signed test\n    char buf2[20];\n    size_t bufsize2 = sizeof(buf2);\n\n    memset(buf2, 0x77, bufsize2);\n\n    int n2 = signed_to_base(buf2, bufsize2, 35, 10, 0);\n    assert(strcmp(buf2, \"35\") == 0)\n    assert(n2 == 2)\n\n    // Test small buffer that cannot fit the entire output\n    char buf3[3];\n    size_t bufsize3 = sizeof(buf3);\n\n    memset(buf3, 0x77, bufsize3);\n    \n    int n3 = signed_to_base(buf3, bufsize3, -100, 10, 3);\n    assert(strcmp(buf3, \"-1\") == 0); // Should truncate output\n    assert(n3 == 4); // Would need 4 chars to fit '-100'\n\n    \n    // Test with zero and minimum width\n    char buf4[10];\n    size_t bufsize4 = sizeof(buf4);\n\n    memset(buf4, 0x77, bufsize4);\n\n    int n4 = signed_to_base(buf4, bufsize4, 0, 10, 3);\n    assert(strcmp(buf4, \"000\") == 0); // Zero with padding\n    assert(n4 == 3);\n}\n\nstatic void test_snprintf(void) {\n    char buf[100];\n    size_t bufsize = sizeof(buf);\n\n    memset(buf, 0x77, bufsize); // init contents with known value\n\n    // Start off simple...\n    snprintf(buf, bufsize, \"Hello, world!\");\n    assert(strcmp(buf, \"Hello, world!\") == 0);\n\n    // Decimal\n    snprintf(buf, bufsize, \"%d\", 45);\n    assert(strcmp(buf, \"45\") == 0);\n\n    // Hexadecimal\n    snprintf(buf, bufsize, \"%04x\", 0xef);\n    assert(strcmp(buf, \"00ef\") == 0);\n    snprintf(buf, bufsize, \"%lx\", ~0L);\n    assert(strcmp(buf, \"ffffffffffffffff\") == 0);\n\n    // Pointer\n    snprintf(buf, bufsize, \"%p\", (void *) 0x20200004);\n    assert(strcmp(buf, \"0x20200004\") == 0);\n\n    // Character\n    snprintf(buf, bufsize, \"%c\", 'A');\n    assert(strcmp(buf, \"A\") == 0);\n\n    // String\n    snprintf(buf, bufsize, \"%s\", \"binky\");\n    assert(strcmp(buf, \"binky\") == 0);\n\n    // Format string with intermixed codes\n    snprintf(buf, bufsize, \"CS%d%c!\", 107, 'e');\n    assert(strcmp(buf, \"CS107e!\") == 0);\n\n    // Test return value\n    assert(snprintf(buf, bufsize, \"Hello\") == 5);\n    assert(snprintf(buf, 2, \"Hello\") == 5);\n\n    // My Tests\n    // Negative decimal\n    snprintf(buf, bufsize, \"%d\", -123);\n    assert(strcmp(buf, \"-123\") == 0);\n\n    // Perfectly fitting\n    snprintf(buf, 14, \"Hello, world!\");\n    assert(strcmp(buf, \"Hello, world!\") == 0);\n    assert(snprintf(buf, 13, \"Hello, world!\") == 13);\n\n    // Too small buf\n    snprintf(buf, 5, \"Hello, world!\");\n    assert(strcmp(buf, \"Hell\") == 0);  // Only first four chars should fit, fifth for null terminator\n    assert(snprintf(buf, 5, \"Hello, world!\") == 13);\n\n    // Hex with Maximum unsigned long\n    snprintf(buf, bufsize, \"%lx\", 0xFFFFFFFFFFFFFFFFUL);\n    assert(strcmp(buf, \"ffffffffffffffff\") == 0);\n\n    // Pointer edge case: null pointer\n    snprintf(buf, bufsize, \"%p\", (void *)NULL);\n    assert(strcmp(buf, \"0x0\") == 0);\n\n     // Character with '\\n'\n    snprintf(buf, bufsize, \"%c\", '\\n');\n    assert(buf[0] == '\\n' && buf[1] == '\\0');\n\n     // String edge case: empty string\n    snprintf(buf, bufsize, \"%s\", \"\");\n    assert(strcmp(buf, \"\") == 0);\n\n    // Complex format with multiple types and longer length\n    snprintf(buf, bufsize, \"Number %d, Hex: %x, Char: %c, Str: %s\", 250, 0xab, 'Z', \"Test\");\n    assert(strcmp(buf, \"Number 250, Hex: ab, Char: Z, Str: Test\") == 0);\n\n    // Buffer too small for complex string\n    char small_buf[25];\n    int needed_length = snprintf(small_buf, sizeof(small_buf), \"Long string %d, %s\", 12345, \"exceeds buffer\");\n    assert(strcmp(small_buf, \"Long string 12345, excee\") == 0);  // Should truncate with null terminator\n    assert(needed_length == 33);  // Full length needed\n                                 \n\n\n}\n\n// This function just here as code to disassemble for extension\nint sum(int n) {\n    int result = 6;\n    for (int i = 0; i < n; i++) {\n        result += i * 3;\n    }\n    return result + 729;\n}\n\nvoid test_disassemble(void) {\n    const unsigned int add = 0x00f706b3;\n    const unsigned int xori = 0x0015c593;\n    const unsigned int bne = 0xfe061ce3;\n    const unsigned int sd = 0x02113423;\n\n    // If you have not implemented the extension, core printf\n    // will output address not disassembled followed by I\n    // e.g.  \"... disassembles to 0x07ffffd4I\"\n    printf(\"Encoded instruction %08x disassembles to %pI\\n\", add, &add);\n    printf(\"Encoded instruction %08x disassembles to %pI\\n\", xori, &xori);\n    printf(\"Encoded instruction %08x disassembles to %pI\\n\", bne, &bne);\n    printf(\"Encoded instruction %08x disassembles to %pI\\n\", sd, &sd);\n\n    unsigned int *fn = (unsigned int *)sum; // disassemble instructions from sum function\n    for (int i = 0; i < 10; i++) {\n        printf(\"%p:  %08x  %pI\\n\", &fn[i], fn[i], &fn[i]);\n    }\n}\n\n\nvoid main(void) {\n    uart_init();\n    uart_putstring(\"Start execute main() in test_strings_printf.c\\n\");\n/*\n    test_memset();\n    test_strcmp();\n    test_strlcat();\n    test_strtonum();\n    test_to_base();\n*/\n   test_snprintf();\n//    test_disassemble();\n\n    // TODO: Add more and better tests!\n    // Tests added!\n\n    uart_putstring(\"Successfully finished executing main() in test_strings_printf.c\\n\");\n}\n",
+          "comments": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,316 @@
+{
+  "grades": {
+    "assign1": {
+      "name": "assign1",
+      "timeliness": {
+        "submit": {
+          "when": "Thu 4/11 03:39",
+          "status": "on/before duedate",
+          "override": ""
+        },
+        "retests": null,
+        "extension": null
+      },
+      "test_totals": {
+        "Larson application": {
+          "total": 5,
+          "passed": 5
+        }
+      },
+      "test_results": {
+        "10-SingleLED": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "11-MovementOneDirection": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "12-MovementBothDirection": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "13-LarsonPattern": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "14-PatternOffByOne": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "30-CodeQuality": {
+          "result": "+",
+          "explanation": "",
+          "issue": null,
+          "class": "Quality",
+          "extension_name": null,
+          "category": "Style"
+        }
+      },
+      "review": {
+        "larson.s": {
+          "lines": "/* File: larson.s\n * --------------\n * makes cool lights that bounce from side to side. 3 levels of brightness tapering off on each side with at most 5 concurrently shining LEDs. So much time has been dumped into this\n */\n\n    lui     a0,0x2000       # a0 holds base addr PB group = 0x2000000\n    lui     a1,0x11111      \n    addi    a1, a1,0x111    # a1 holds all ones to configure the pins\n    sw      a1,0x30(a0)     # config PB0 as output\n    addi    a1, zero, 1     # a1 holds 1\n    addi    a2, zero, 1     # a2 holds where the current light up pin is at\n    addi    t2, zero, 1     # t2 marks where the centre is\n    addi    a3, zero, 0     # a3 stores the direction it is going in\n    addi    a5, zero, 0x80  # a5 stores the max number of lights\nloop:\n    sll     t2, t2, 1      # shifts the light down    \n    srl     t2, t2, a3     # these two lines help switch directions\n    srl     t2, t2, a3\n    addi    a2, t2, 0\n    # settin up the three leds that light up\n    addi    t1, a2, 0\n    addi    t3, a2, 0\n    slli    t1, t1, 2\n    slli    t3, t3, 1\n    or      a2, a2, t1\n    or      a2, a2, t3     # 3 LED bits with rightmost bit being centre led \n\n    lui     a4,0x50       # a4 = init countdown value\n    \ndelay:\n    addi    a4,a4,-1       # decrement a4   \n    addi    a7, zero, 3    # a7 sets the number of display cycle\n    addi    t1, a2, 0      # moves the display registor, t1, back to default display bits\n\ndisplay:\n    addi    a7, a7, -1     # increments the timer\n    sw      t1, 0x40(a0)   # displays the current lights\n    srli    t1, t1, 1      # shifts one down (will do this 2 times total)\n    bne     a7, zero, display # display nested loop end here\n    bne     a4,zero,delay   # keep counting down until a4 is zero\n\n#determining directions \n    beq     t2, a5, switch  # switchs when it hits the end\n    beq     t2, a1, switch  # switches when it hits the start\n    j       loop            # back to top of outer loop\nswitch:\n    xori    a3, a3, 1\n    j       loop\n",
+          "comments": [
+            {
+              "from": 5,
+              "to": 5,
+              "comment": "Beautiful code! Great work! "
+            }
+          ]
+        }
+      }
+    },
+    "assign2": {
+      "name": "assign2",
+      "timeliness": {
+        "submit": {
+          "when": "Wed 4/24 01:05",
+          "status": "within grace period",
+          "override": ""
+        },
+        "retests": null,
+        "extension": {
+          "when": "Wed 4/24 05:04",
+          "status": "within grace period",
+          "override": ""
+        }
+      },
+      "test_totals": {
+        "Clock application": {
+          "total": 3,
+          "passed": 3
+        },
+        "Unit tests (P1)": {
+          "total": 7,
+          "passed": 7
+        },
+        "Unit tests (P2)": {
+          "total": 2,
+          "passed": 2
+        },
+        "Unit tests (P3)": {
+          "total": 1,
+          "passed": 0
+        }
+      },
+      "test_results": {
+        "10-GpioSetFunction": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "11-GpioGetFunction": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "12-GpioSetFunctionClear": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "13-GpioSetFunctionIndependent": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "14-GpioRead": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "15-GpioWrite": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "16-GpioSetGetFunctionAll": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "17-GpioReadWriteAll": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "18-GpioInvalid": {
+          "result": false,
+          "explanation": "Match ratio = 0.998",
+          "issue": "open",
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "20-Timer": {
+          "result": true,
+          "explanation": "Student output matches staff ",
+          "issue": null,
+          "class": "MangoRunDiffOutput",
+          "extension_name": null,
+          "category": null
+        },
+        "40-ExtensionSetTime": {
+          "result": "Complete",
+          "explanation": "",
+          "issue": null,
+          "class": "Extension",
+          "extension_name": "Set time",
+          "category": null
+        },
+        "50-CodeQuality": {
+          "result": "+",
+          "explanation": "",
+          "issue": null,
+          "class": "Quality",
+          "extension_name": null,
+          "category": "Style"
+        },
+        "51-TestsQuality": {
+          "result": "+",
+          "explanation": "",
+          "issue": null,
+          "class": "Quality",
+          "extension_name": null,
+          "category": "Tests"
+        },
+        "30-ClockStart": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "31-ClockProgress": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        },
+        "32-ClockEnd": {
+          "result": true,
+          "explanation": "",
+          "issue": null,
+          "class": "Manual",
+          "extension_name": null,
+          "category": null
+        }
+      },
+      "review": {
+        "timer_asm.s": {
+          "lines": "/* File: timer_asm.s\n * ------------------\n * ***** TODO: add your file header comment here *****\n */\n\n.attribute arch, \"rv64imac_zicsr\"\n\n.globl timer_get_ticks\ntimer_get_ticks:\n    csrr a0,time\n    /***** TODO: Your code goes here *****/\n    # Take care to use correct dest register for return value\n    # so as to interoperate with C calling conventions\n    ret\n",
+          "comments": [
+            {
+              "from": 3,
+              "to": 3,
+              "comment": "Delete TODOs ! "
+            }
+          ]
+        },
+        "gpio.c": {
+          "lines": "#include \"gpio.h\"\n#include <stddef.h>\n\nenum { GROUP_B = 0, GROUP_C, GROUP_D, GROUP_E, GROUP_F, GROUP_G };\n\ntypedef struct  {\n    unsigned int group;\n    unsigned int pin_index;\n} gpio_pin_t;\n\n// The gpio_id_t enumeration assigns a symbolic constant for each\n// in such a way to use a single hex constant. The more significant\n// hex digit identifies the group and lower 2 hex digits are pin index:\n//       constant 0xNnn  N = which group,  nn = pin index within group\n//\n// This helper function extracts the group and pin index from a gpio_id_t\n// e.g. GPIO_PB4 belongs to GROUP_B and has pin_index 4\nstatic gpio_pin_t get_group_and_index(gpio_id_t gpio) {\n    gpio_pin_t gp;\n    gp.group = gpio >> 8;\n    gp.pin_index = gpio & 0xff; // lower 2 hex digits\n    return gp;\n}\n\n// The gpio groups are differently sized, e.g. B has 13 pins, C only 8.\n// This helper function confirms that a gpio_id_t is valid (group\n// and pin index are valid)\nbool gpio_id_is_valid(gpio_id_t pin) {\n    gpio_pin_t gp = get_group_and_index(pin);\n    switch (gp.group) {\n        case GROUP_B: return (gp.pin_index <= GPIO_PB_LAST_INDEX);\n        case GROUP_C: return (gp.pin_index <= GPIO_PC_LAST_INDEX);\n        case GROUP_D: return (gp.pin_index <= GPIO_PD_LAST_INDEX);\n        case GROUP_E: return (gp.pin_index <= GPIO_PE_LAST_INDEX);\n        case GROUP_F: return (gp.pin_index <= GPIO_PF_LAST_INDEX);\n        case GROUP_G: return (gp.pin_index <= GPIO_PG_LAST_INDEX);\n        default:      return false;\n    }\n}\n\n// This helper function is suggested to return the address of\n// the config0 register for a gpio group, i.e. get_cfg0_reg(GROUP_B)\n// Refer to the D1 user manual to learn the address the config0 register\n// for each group. Be sure to note how the address of the config1 and\n// config2 register can be computed as relative offset from config0.\nstatic volatile unsigned int *get_cfg0_reg(unsigned int group) {\n    unsigned int *address = (unsigned int*) (0x02000030 + 0x30* (unsigned long)group);\n    return address;\n}\n\n// This helper function is suggested to return the address of\n// the data register for a gpio group. Refer to the D1 user manual\n// to learn the address of the data register for each group.\nstatic volatile unsigned int *get_data_reg(unsigned int group) {\n    unsigned int *address = (unsigned int*) (0x02000040 + 0x30* (unsigned long)group);\n    return address;\n}\n\nvoid gpio_init(void) {\n    // no initialization required for this peripheral\n}\n\nvoid gpio_set_input(gpio_id_t pin) {\n    gpio_set_function(pin, GPIO_FN_INPUT);\n}\n\nvoid gpio_set_output(gpio_id_t pin) {\n    gpio_set_function(pin, GPIO_FN_OUTPUT);\n}\n\nvoid gpio_set_function(gpio_id_t pin, unsigned int function) {\n    if (!gpio_id_is_valid(pin)){return;}\n    gpio_pin_t gp =  get_group_and_index(pin);\n    int index = gp.pin_index;\n    volatile unsigned int *f_address = get_cfg0_reg(gp.group);\n    while (index > 7){\n\t    f_address = f_address + 1;\n\t    index -= 8;\n    }\n    unsigned int curr_value = *f_address;\n    function = function << (index*4); // *4 to account hex to bits conversion\n    unsigned int mask = 0xf;\n    mask = mask << (index*4);\n    mask = mask ^ 0xffffffff;\n    curr_value = curr_value & mask;\n    curr_value = function | curr_value;\n    *f_address = curr_value;\n    return;\n}\n\nunsigned int gpio_get_function(gpio_id_t pin) {\n    if (!gpio_id_is_valid(pin)){return -1;}\n    gpio_pin_t gp =  get_group_and_index(pin);\n    int index = gp.pin_index;\n    volatile unsigned int *f_address = get_cfg0_reg(gp.group);\n    while (index > 7){\n      f_address = f_address + 1;\n    \tindex = index - 8;\n    }\n    unsigned int curr_value = *f_address;\n    unsigned int getter = 0xf;\n    getter = getter << (index*4);\n    getter = getter & curr_value;\n    getter = getter >> (index*4);\n    return getter;\n}\n\nvoid gpio_write(gpio_id_t pin, int value) {\n    if (!gpio_id_is_valid(pin)){return;}\n    gpio_pin_t gp =  get_group_and_index(pin);\n    volatile unsigned int *f_address = get_data_reg(gp.group);\n    unsigned int curr_value = *f_address;\n    unsigned int change = 1 << gp.pin_index;\n    curr_value = change | curr_value;\t\n    if (!value){\n        curr_value = curr_value ^ change;\n    }\n    *f_address = curr_value;\n}\n\nint gpio_read(gpio_id_t pin) {\n    if (!gpio_id_is_valid(pin)){return GPIO_INVALID_REQUEST;}\n    gpio_pin_t gp =  get_group_and_index(pin);\n    volatile unsigned int *f_address = get_data_reg(gp.group);\n    unsigned int curr_value = *f_address;\n    unsigned int peek = 1 << gp.pin_index;\n    peek = peek & curr_value;\n    if (!peek){\n\t      return 0;\n    }\n    return 1;\n}\n",
+          "comments": [
+            {
+              "from": 84,
+              "to": 84,
+              "comment": "dont use xor just use ~ to invert bits :-) "
+            },
+            {
+              "from": 76,
+              "to": 78,
+              "comment": "this works, can also use % and / to avoid the loop and extra logic. "
+            }
+          ]
+        },
+        "clock.c": {
+          "lines": "#include \"gpio.h\"\n#include \"timer.h\"\n\ngpio_id_t segment_gpio[] = {GPIO_PD17, GPIO_PB6, GPIO_PB12, GPIO_PB11, GPIO_PB10, GPIO_PE17, GPIO_PB0};\ngpio_id_t digit_gpio[] = {GPIO_PC0, GPIO_PB2, GPIO_PB3, GPIO_PB4};\nunsigned char character[] = {0b00111111, 0b00000110, 0b01011011, 0b01001111, 0b01100110, 0b01101101, 0b01111101, 0b00000111, 0b01111111, 0b01101111, 0b01110111, 0b01111111, 0b00111001, 0b00111111, 0b01111001, 0b01110001};\n\n\nstatic void setup_pin_mode(){\n\n  for (int i = 0; i < 7; i++) {\n    gpio_set_output(segment_gpio[i]);  \n  }\n  for (int i = 0; i < 4; i++) {\n    gpio_set_output(digit_gpio[i]);  \n  }\n  \n  gpio_set_input(GPIO_PG13);\n  gpio_set_input(GPIO_PG12);\n\n}\nstatic void display_digit(unsigned char digit, gpio_id_t pin){\n  for (int i = 0; i < 7; i++) {\n    gpio_write(segment_gpio[i], (digit & (1<<i))>>i);\n  }\n  gpio_write(pin, 1); \n  return;\n}\n\n//delay is in ms\nstatic void display(int digits, int delay){\n    int flicker_rate = 2500;\n    for (int j = 0; j < delay/10; j++){\n      for (int i = 0; i < 4; i++){\n        display_digit(character[(digits>>(4*i))%16], digit_gpio[i]);\n        timer_delay_us(flicker_rate);\n        gpio_write(digit_gpio[i], 0);\n      }\n    }\n}\n\nvoid main(void) {\n  setup_pin_mode();\n  int display_value = 0x1011;\n  \n  while (gpio_read(GPIO_PG13)){\n    display(display_value,10);\n  }\n  while (display_value != 0){\n    if (display_value%0x1000 == 0){\n      display_value = display_value - 0x1000 + 0x959;\n    } \n    if (display_value%0x100 == 0){\n      display_value = display_value - 0x100 + 0x59;\n    }\n    else if (display_value%0x10 == 0){\n      display_value = display_value - 0x10 + 0x9; \n    }\n    else{\n      display_value -= 1;\n    }\n    display(display_value,1000);\n  }\n  display_value = 0x0000;\n  while (true){\n    display_value = 0x0000;\n    display(display_value, 500);\n    display_value = 0x8888;\n    display(display_value, 500);\n  }\n  return;\n  \n}\n\n",
+          "comments": [
+            {
+              "from": 24,
+              "to": 24,
+              "comment": "if you reorder - shift first then & with 1 can avoid the extra shift "
+            }
+          ]
+        },
+        "test_gpio_timer.c": {
+          "lines": "#include \"gpio.h\"\n#include \"timer.h\"\n\n// You call assert on an expression that you expect to be true. If expr\n// instead evaluates to false, then assert calls abort, which stops\n// your program and flashes onboard led.\n#define assert(expr) if(!(expr)) abort()\n\n// infinite loop that flashes onboard blue LED (GPIO PD18)\nvoid abort(void) {\n    volatile unsigned int *GPIO_CFG2 = (unsigned int *)0x02000098;\n    volatile unsigned int *GPIO_DATA = (unsigned int *)0x020000a0;\n\n    // Configure GPIO PD18 function to be output.\n    *GPIO_CFG2 = (*GPIO_CFG2 & ~(0xf00)) | 0x100;\n    while (1) { // infinite loop\n        *GPIO_DATA ^= (1 << 18); // invert value\n        for (volatile int delay = 0x100000; delay > 0; delay--) ; // wait\n    }\n}\n\nvoid test_gpio_set_get_function(void) {\n    // Test get pin function (pin defaults to disabled)\n    assert( gpio_get_function(GPIO_PC0) == GPIO_FN_DISABLED);\n    //Set pin to output, confirm get returns what was set\n    gpio_set_output(GPIO_PC0);\n    assert( gpio_get_function(GPIO_PC0) == GPIO_FN_OUTPUT );\n\n    // Set pin to input, confirm get returns what was set (reconfigures the pin)\n    gpio_set_input(GPIO_PC0);\n    assert( gpio_get_function(GPIO_PC0) == GPIO_FN_INPUT );\n    \n    // checking to see if pins can be set the same value again\n    gpio_set_input(GPIO_PC0);\n    assert( gpio_get_function(GPIO_PC0) == GPIO_FN_INPUT );\n    \n    // checking if neighboring pins are affected \n    assert( gpio_get_function(GPIO_PC1) == GPIO_FN_DISABLED); \n    \n    gpio_set_function(GPIO_PD21, GPIO_FN_ALT4);\n    assert( gpio_get_function(GPIO_PD21) ==  GPIO_FN_ALT4);\n    \n    // checking for invalid request\n    gpio_set_input(95);\n    assert( gpio_get_function(95) ==  GPIO_INVALID_REQUEST);\n}\n\nvoid test_gpio_read_write(void) {\n    // set pin to output before gpio_write\n    gpio_set_output(GPIO_PB4);\n\n    // gpio_write low, confirm gpio_read reads what was written\n    gpio_write(GPIO_PB4, 0);\n    assert( gpio_read(GPIO_PB4) ==  0 );\n\n   // gpio_write high, confirm gpio_read reads what was written\n    gpio_write(GPIO_PB4, 1);\n    assert( gpio_read(GPIO_PB4) ==  1 );\n\n    // gpio_write low, confirm gpio_read reads what was written\n    gpio_write(GPIO_PB4, 0);\n    assert( gpio_read(GPIO_PB4) ==  0 );\n    \n    // checking other pins to be changed\n    gpio_write(GPIO_PD22, 1);\n    assert( gpio_read(GPIO_PD22) ==  1 );\n    \n    // checking other pins to be changed\n    gpio_write(GPIO_PD21, 1);\n    assert( gpio_read(GPIO_PD21) ==  1 );\n\n    // checking if other bits are changed\n    gpio_write(GPIO_PB8, 1);\n    assert( gpio_read(GPIO_PB9) ==  0 );\n}\n\nvoid test_timer(void) {\n    // Test timer tick count incrementing\n    unsigned long start = timer_get_ticks();\n    for( int i=0; i<10; i++ ) { /* Spin */ }\n    unsigned long finish = timer_get_ticks();\n    assert( finish > start );\n\n    // Test timer delay\n    int usecs = 100;\n    start = timer_get_ticks();\n    timer_delay_us(usecs);\n    finish = timer_get_ticks();\n    assert( finish >= start + usecs*TICKS_PER_USEC );\n}\n\nvoid test_breadboard(void) {\n    gpio_id_t segment[7] = {GPIO_PD17, GPIO_PB6, GPIO_PB12, GPIO_PB11, GPIO_PB10, GPIO_PE17, GPIO_PB0};\n    gpio_id_t digit[4] = {GPIO_PB4, GPIO_PB3, GPIO_PB2, GPIO_PC0};\n\n    gpio_id_t button = GPIO_PG13;\n\n    for (int i = 0; i < 7; i++) {  // configure segments\n        gpio_set_output(segment[i]);\n    }\n    for (int i = 0; i < 4; i++) {  // configure digits\n        gpio_set_output(digit[i]);\n    }\n    gpio_set_input(button); // configure button\n\n    while (1) { // loop forever (finish via button press, see below)\n        for (int i = 0; i < 4; i++) {   // iterate over digits\n            gpio_write(digit[i], 1);    // turn on digit\n            for (int j = 0; j < 7; j++) {   // iterate over segments\n                gpio_write(segment[j], 1);  // turn on segment\n                timer_delay_ms(200);\n                gpio_write(segment[j], 0);  // turn off segment\n                if (gpio_read(button) == 0) return;  // stop when button pressed\n            }\n            gpio_write(digit[i], 0);    // turn off digit\n        }\n    }\n}\n\nvoid main(void) {\n    gpio_init();\n    timer_init();\n\n    // Uncomment the call to each test function below when you have implemented\n    // the functions and are ready to test them\n\n    test_gpio_set_get_function();\n    test_gpio_read_write();\n    test_timer();\n    test_breadboard();\n}\n",
+          "comments": []
+        },
+        "timer.c": {
+          "lines": "/* File: timer.c\n * -------------\n * ***** TODO: add your file header comment here *****\n */\n#include \"timer.h\"\n\n// implemented in file timer_asm.s\nextern unsigned long timer_get_ticks(void);\n\nvoid timer_init(void) {\n    // no initialization required for this peripheral\n}\n\nvoid timer_delay(int secs) {\n    timer_delay_us(secs*1000000);\n}\n\nvoid timer_delay_ms(int ms) {\n    timer_delay_us(ms*1000);\n}\n\nvoid timer_delay_us(int us) {\n    unsigned long busy_wait_until = timer_get_ticks() + us * TICKS_PER_USEC;\n    while (timer_get_ticks() < busy_wait_until) {} // spin\n}\n",
+          "comments": []
+        },
+        "cstart.c": {
+          "lines": "/* File: cstart.c\n * --------------\n * Provided to you pre-written. In an upcoming lecture, we\n * will discuss what this code does and why it is necessary.\n */\n\n// linker memmap places these symbols at start/end of bss\nextern char __bss_start, __bss_end;\n\nextern void main(void);\n\n// The C function _cstart is called from the assembly in start.s\n// _cstart zeroes out the BSS section and then calls main.\n// After return from main(), turns on the onboard act led as\n// a sign of successful completion.\nvoid _cstart(void) {\n    char *bss = &__bss_start;\n    char *bss_end = &__bss_end;\n\n    while (bss < bss_end) {\n        *bss++ = 0;\n    }\n\n    // Turn on the blue act led (GPIO PD18) before starting main\n    volatile unsigned int *PD_CFG2 = (unsigned int *)0x02000098;\n    volatile unsigned int *PD_DATA = (unsigned int *)0x020000a0;\n    *PD_CFG2 = (*PD_CFG2 & ~0xf00) | 0x100;\n    *PD_DATA |= (1 << 18);\n\n    main();\n\n    *PD_DATA &= ~(1 << 18); // turn off after main finishes normally\n}\n",
+          "comments": []
+        },
+        "start.s": {
+          "lines": "/* File: start.s\n * -------------\n * These asm instuctions go first in binary image, they will be\n * the first to be executed in a newly loaded program.\n */\n .attribute arch, \"rv64im_zicsr\"\n\n# Identify this section as the one to go first in binary image\n.section \".text.start\"\n\n.globl _start\n_start:\n    csrc    mstatus, 1<<3   # global disable interrupts, mstatus.mie = 0\n    la      t0,_trap_handler\n    csrw    mtvec,t0        # install trap handler\n    lui     sp,0x60000      # init stack at 0x60000000 (grows down)\n    jal     _cstart\n\nhang: j hang\n\n.align 8\n_trap_handler:\n    j _trap_handler        # if exception raised, hang\n",
+          "comments": []
+        },
+        "larson.c": {
+          "lines": "/* File: larson.c\n * --------------\n * Sample program that demonstrates use of gpio and timer library modules.\n * (Larson scanner rewritten in C)\n * Author: Julie Zelenski <zelenski@cs.stanford.edu>\n */\n#include \"gpio.h\"\n#include \"timer.h\"\n\n#define NUM_LEDS 4\n#define DELAY_MS  (1000/NUM_LEDS)  // frequency 1 sweep per sec\n\nvoid blink(gpio_id_t pin) {\n    gpio_write(pin, 1);\n    timer_delay_ms(DELAY_MS);\n    gpio_write(pin, 0);\n    timer_delay_ms(DELAY_MS);\n}\n\nvoid main(void) {\n    gpio_id_t leds[NUM_LEDS] = { GPIO_PB0, GPIO_PB1, GPIO_PB2, GPIO_PB3 };\n    gpio_init();\n    for (int i = 0; i < NUM_LEDS; i++) {\n        gpio_set_output(leds[i]);\n    }\n\n    int cur = 0;\n    while (1) {\n        for (int i = 0; i < NUM_LEDS-1; i++) {\n            blink(leds[cur++]); // move up\n        }\n        for (int i = 0; i < NUM_LEDS-1; i++) {\n            blink(leds[cur--]); // move down\n        }\n    }\n}\n",
+          "comments": []
+        }
+      }
+    },
+    "assign3": {
+      "name": "assign3",
+      "timeliness": {
+        "submit": null,
+        "retests": null,
+        "extension": null
+      },
+      "test_totals": {},
+      "test_results": {},
+      "review": {}
+    }
+  }
+}
